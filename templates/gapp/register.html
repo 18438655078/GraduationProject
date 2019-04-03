@@ -24,7 +24,7 @@
     <div id="middle">
         <p id="flag">请注册</p>
         <form action="{% url "analysis:do_register" %}">
-{#            {% csrf_token %}#}
+            {% csrf_token %}
             账号:<input type="text" placeholder="账号/手机/邮箱" name="username" autofocus>
             <br>
             <br>
