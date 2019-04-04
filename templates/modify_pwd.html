@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>登录</title>
+    <title>修改密码</title>
     <style>
         #middle{
             text-align: center;
@@ -22,17 +22,19 @@
 </head>
 <body background="../static/images/b1.jpg">
     <div id="middle">
-        <p id="flag">请登录</p>
+        <p id="flag">修改密码</p>
         <form action="{% url "login" %}" method="post">
             {% csrf_token %}
             账号:<input type="text" placeholder="账号/手机/邮箱" name="username" autofocus>
             <br>
+            原密码:<input type="password" name="password">
             <br>
             <br>
-            密码:<input type="password" name="password">
+
+            新密码:<input type="password" name="new_password">
             <br>
             <br>
-            &nbsp;&nbsp;&nbsp;<input id="sub" type="submit" value="登录">&nbsp;&nbsp;&nbsp;&nbsp;<button><a class="but" href="register.html">点这里注册</a></button>
+            &nbsp;&nbsp;&nbsp;<input id="sub" type="submit" value="修改">&nbsp;&nbsp;&nbsp;&nbsp;<button><a class="but" href="user.html">返回</a></button>
         </form>
 
     </div>

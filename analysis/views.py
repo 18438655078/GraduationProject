@@ -66,27 +66,26 @@ def user_login(request):
 
 def user_logout(request):
     logout(request)
-    return render(request, 'index.html')
-
-
-#
-# def login(request):
-#     return render(request, 'gapp/login.html')
-
-
-def do_login(request):
-    username = request.POST['username']
-    password = request.POST['password']
+    # 退出就返回登录界面，必须登录之后才可以进行操作
+    return render(request, 'login.html')
 
 
 def index(request):
-    return HttpResponse("123456789")
+    return render(request, 'index.html')
 
 
-def detail(request):
-    return HttpResponse("detail-%s" % request)
+def modify_pwd(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        new_password = request.POST['new_password']
+
+
+# def detail(request):
+#     return HttpResponse("detail-%s" % request)
 
 
 def do_excel(request):
     # 读取表格处理数据
-    excel_raw_data = pd.read_excel(request.FILES.get('excel'))
+    uploadfile = request.FILES.get('excel')
+    excel_raw_data = pd.read_excel(uploadfile)
