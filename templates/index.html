@@ -7,6 +7,9 @@
         body{
             text-align: center;
         }
+        span{
+            color: red;
+        }
     </style>
 </head>
 <body background="../static/images/b3.jpg">
@@ -15,8 +18,9 @@
         <form  action="" method="post" id ="fileUpdate-form" enctype="multipart/form-data">
             {% csrf_token %}
             <p>请上传需要进行分析的表格文件:(必须按照规定的格式上传)</p>
-            <input type="file" name="excel">
-            <input type="submit" value="上传">
+            <p><span>菜品:</span><input type="file" name="dishes_excel"></p>
+            <p><span>订单:</span><input type="file" name="order_excel"></p>
+            <p><input type="submit" value="上传"></p>
         </form>
     </div>
 </body>

@@ -6,7 +6,6 @@ from .models import UserInfo
 # Create your views here.
 
 from django.shortcuts import render, redirect
-from .models import UserProfile
 from django.core.urlresolvers import reverse
 from django.contrib.auth import authenticate, login, logout
 from .forms import UserRegisterForm, UserLoginForm
@@ -22,13 +21,13 @@ def user_register(request):
             username = user_register_form.cleaned_data['username']
             password = user_register_form.cleaned_data['password']
 
-            user = UserProfile.objects.filter(username=username)
+            user = UserInfo.objects.filter(username=username)
             if user:
                 return render(request, 'register.html', {
                     'mag': '账号已存在'
                 })
             else:
-                a = UserProfile()
+                a = UserInfo()
                 a.password = password
                 a.username = username
                 # 内部函数自动加密功能
@@ -87,5 +86,7 @@ def modify_pwd(request):
 
 def do_excel(request):
     # 读取表格处理数据
-    uploadfile = request.FILES.get('excel')
-    excel_raw_data = pd.read_excel(uploadfile)
+    order_file = request.FILES.get('order_file')
+    dishes_file = request.FILES.get('dishes_file')
+    order_file_data = pd.read_excel(order_file)
+    dishes_file_data = pd.read_excel(dishes_file)
