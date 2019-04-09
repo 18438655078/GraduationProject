@@ -1,22 +1,21 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-# from django import forms
+from django.contrib.auth.models import User
+from django.utils.html import format_html
 
-# Create your models here.
+class Order(models.Model):
+    class Meta:
+        verbose_name='订单'
+        verbose_name_plural='订单'
+    order_file=models.FileField("订单excel",upload_to="uploads",default='')
+    dishes_file=models.FileField("菜品excel",upload_to="uploads",default='')
+    order = models.CharField(max_length=20, unique=True, verbose_name='订单编号')
+    user = models.ForeignKey(User,on_delete=models.CASCADE,verbose_name='用户')
+    create_time=models.DateField(auto_now_add=True,verbose_name="创建事件")
 
-
-class UserInfo(AbstractUser):
-    username = models.CharField(max_length=60)
-    uid = models.AutoField(primary_key=True)
-    password = models.CharField(max_length=60)
-    # telephone = models.CharField(max_length=11, null=True, unique=True)
-    # avatar = models.FileField(upload_to='avatars/', default="/avatars/default.png")
-    # create_time = models.DateTimeField(verbose_name='创建时间', auto_now_add=True)
-    # blog = models.OneToOneField(to='Blog', to_field='nid', null=True)
-
-
-class OrderInfo(AbstractUser):
-    username = models.CharField(max_length=60)
-    oid = models.AutoField(primary_key=True)
-    outkey = models.ForeignKey(UserInfo,on_delete=models.CASCADE,related_name='outkey')
-    # password = models.CharFiled(max_length=60)
+    def orderinfo(self):
+        color_code = 'green'
+        return format_html(
+            '<span><a href="" style="color:{};">{}<a></span>', color_code, '查看详情',
+        )
+    orderinfo.short_description = u'订单详情'

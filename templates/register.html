@@ -1,30 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
+{% extends 'base/base.html' %}
+{% load static %}
+    {% block title %}
     <title>注册</title>
     <style>
-        #middle{
-            text-align: center;
-            width: 300px;
-            height: 200px;
-            margin: 0 auto;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            background-color: rgba(0, 0 , 0, 0);
-            transform: translate(-50%, -50%);
-        }
-        .but{
-            text-decoration-line: none;
-            }
+        #middle{text-align: center;width: 300px;height: 200px;margin: 0 auto;position: absolute;
+            top: 50%;left: 50%;background-color: rgba(0, 0 , 0, 0);transform: translate(-50%, -50%);}
+        .but{text-decoration-line: none;}
     </style>
-</head>
-<body background="../static/images/b1.jpg">
+{% endblock %}
+
+{% block body %}
+<body background="{% static 'images/b1.jpg' %}">
     <div id="middle">
         <p id="flag">请注册</p>
-        <form action="{% url "register" %}" method="post">
+        <form action="{% url "analysis:user_register" %}" method="post">
             {% csrf_token %}
+            <div style="color: red">{{ msg }}</div>
             账号:<input type="text" placeholder="账号/手机/邮箱" name="username" autofocus>
             <br>
             <br>
@@ -32,8 +23,8 @@
             密码:<input type="password" name="password">
             <br>
             <br>
-            &nbsp;&nbsp;&nbsp;<input id="sub" type="submit" value="注册">&nbsp;&nbsp;&nbsp;&nbsp;<button><a class="but" href="login.html">点这里登录</a></button>
+            &nbsp;&nbsp;&nbsp;<input id="sub" type="submit" value="注册">&nbsp;&nbsp;&nbsp;&nbsp;<button><a class="but" href="/admin">点这里登录</a></button>
         </form>
     </div>
 </body>
-</html>
+{% endblock %}
