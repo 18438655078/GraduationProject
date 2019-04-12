@@ -3,9 +3,10 @@ from .models import Order
 import time
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-	list_display = ('user','order','create_time','orderinfo')
+	ordering = ('-create_time',)
+	list_display = ('order','user','create_time','orderinfo')
 	search_fields = ('user','order','create_time',)
-	exclude = ('order','user')
+	exclude = ('order','user','avgcount','menavg','dishe_avg','use_time','img1','img2','img3','is_activate')
 	def get_queryset(self, request):
 		qs = super(OrderAdmin, self).get_queryset(request)
 		if request.user.is_superuser:
@@ -13,9 +14,8 @@ class OrderAdmin(admin.ModelAdmin):
 		return qs.filter(user=request.user)
 	def get_readonly_fields(self, request, obj=None):
 		if obj:
-			return ['user','order','create_time','order_file','dishes_file']
-		else:
-			return []
+			return ['order_file','dishes_file','order','user','avgcount','menavg','dishe_avg','use_time','img1','img2','img3','is_activate']
+		return []
 	def save_model(self, request, obj, form, change):
 		obj.user=request.user
 		t = str(time.time()).split('.')

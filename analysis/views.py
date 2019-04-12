@@ -1,8 +1,9 @@
 from django.shortcuts import render
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect,HttpResponse,Http404
 import pandas as pd
 from django.contrib.auth.models import User,Group
 from django.contrib.auth import login as Auth_Login,authenticate,logout as Auth_Logout
+from django.contrib.auth.decorators import login_required
 from .models import Order
 
 def user_register(request):
@@ -21,9 +22,19 @@ def user_register(request):
             Auth_Logout(request)
             return HttpResponseRedirect('/admin')
 
-def do_excel(request):
+@login_required
+def do_excel(request,id):
     # 读取表格处理数据
-    order_file = request.FILES.get('order_file')
-    dishes_file = request.FILES.get('dishes_file')
+    print(id)
+    order=Order.objects.filter(id=id)
+    if not order.exists():
+        return Http404
+    o=order[0]
+    if o.is_activate == 1:
+        return render(request,'show.html',{"order":o})
+    order_file=o.order_file
+    dishes_file=o.dishes_file
     order_file_data = pd.read_excel(order_file)
     dishes_file_data = pd.read_excel(dishes_file)
+    order = Order.objects.get(id=id)
+    return render(request, 'show.html', {"order": order})
