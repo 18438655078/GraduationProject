@@ -5,6 +5,7 @@ from django.contrib.auth.models import User,Group
 from django.contrib.auth import login as Auth_Login,authenticate,logout as Auth_Logout
 from django.contrib.auth.decorators import login_required
 from .models import Order
+from . import data_process
 
 def user_register(request):
     if request.method == 'GET':
@@ -32,9 +33,13 @@ def do_excel(request,id):
     o=order[0]
     if o.is_activate == 1:
         return render(request,'show.html',{"order":o})
-    order_file=o.order_file
-    dishes_file=o.dishes_file
-    order_file_data = pd.read_excel(order_file)
-    dishes_file_data = pd.read_excel(dishes_file)
+    order_file=o.order_file.name
+    dishes_file=o.dishes_file.name
+
+    print(order_file, order_file)
+    # 传入表格url
+    data_process.deal(dishes_file, order_file)
+    # data_process.deal(order_file_data, dishes_file_data)
     order = Order.objects.get(id=id)
+    print(order)
     return render(request, 'show.html', {"order": order})

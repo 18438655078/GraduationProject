@@ -163,17 +163,13 @@ class DataProcess(object):
             return item
 
 
-def deal(dishes_url, order_url):
+def deal(dishes_info, order_info):
 
     # dishes_info = pd.read_excel(dishes_url)
     # order_info = pd.read_excel(order_url)
-    dishes_info = pd.read_excel("dishes_info.xlsx")
-    order_info = pd.read_excel("order_info.xlsx")
+    dishes_info = pd.read_excel("../static/"+dishes_info)
+    order_info = pd.read_excel("../static/"+order_info)
 
     d = DataProcess(dishes_info, order_info)
     return d.getdata()
-
-
-# a = deal('21','123')
-# print(a)
 
