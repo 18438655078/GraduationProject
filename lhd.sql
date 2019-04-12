@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50549
 File Encoding         : 65001
 
-Date: 2019-04-09 14:48:46
+Date: 2019-04-12 18:05:13
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -26,6 +26,14 @@ CREATE TABLE `analysis_order` (
   `user_id` int(11) NOT NULL,
   `dishes_file` varchar(100) NOT NULL,
   `order_file` varchar(100) NOT NULL,
+  `avgcount` varchar(100) NOT NULL,
+  `dishe_avg` varchar(100) NOT NULL,
+  `img1` varchar(100) NOT NULL,
+  `img2` varchar(100) NOT NULL,
+  `img3` varchar(100) NOT NULL,
+  `menavg` varchar(100) NOT NULL,
+  `use_time` varchar(100) NOT NULL,
+  `is_activate` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `order` (`order`),
   KEY `analysis_order_user_id_3ff040ca_fk_auth_user_id` (`user_id`),
@@ -35,8 +43,8 @@ CREATE TABLE `analysis_order` (
 -- ----------------------------
 -- Records of analysis_order
 -- ----------------------------
-INSERT INTO `analysis_order` VALUES ('1', '15547915863619158', '2019-04-09', '3', 'uploads/dishes_info.xlsx', 'uploads/order_info.xlsx');
-INSERT INTO `analysis_order` VALUES ('2', '15547923593818521', '2019-04-09', '1', 'uploads/dishes_info_7Y43g4Z.xlsx', 'uploads/order_info_W9tux5Y.xlsx');
+INSERT INTO `analysis_order` VALUES ('1', '15547915863619158', '2019-04-09', '3', 'uploads/dishes_info.xlsx', 'uploads/order_info.xlsx', '', '', '', '', '', '', '', '0');
+INSERT INTO `analysis_order` VALUES ('2', '15547923593818521', '2019-04-09', '1', 'uploads/dishes_info_7Y43g4Z.xlsx', 'uploads/order_info_W9tux5Y.xlsx', '', '', '', '', '', '', '', '0');
 
 -- ----------------------------
 -- Table structure for auth_group
@@ -138,7 +146,7 @@ CREATE TABLE `auth_user` (
 -- ----------------------------
 -- Records of auth_user
 -- ----------------------------
-INSERT INTO `auth_user` VALUES ('1', 'pbkdf2_sha256$36000$QzXZ6ICzmGxH$w7cFY+uW/jN301zCAueaPMTVbB00+FTL2a9EzSmXRjI=', '2019-04-09 06:44:00', '0', 'liuhuan', '', '', '18737307883@sina.cn', '1', '1', '2019-04-09 05:57:00');
+INSERT INTO `auth_user` VALUES ('1', 'pbkdf2_sha256$36000$QzXZ6ICzmGxH$w7cFY+uW/jN301zCAueaPMTVbB00+FTL2a9EzSmXRjI=', '2019-04-12 02:57:45', '0', 'liuhuan', '', '', '18737307883@sina.cn', '1', '1', '2019-04-09 05:57:00');
 INSERT INTO `auth_user` VALUES ('2', 'pbkdf2_sha256$36000$urK7Atn7MnuU$Lar3QYM0iKIWVvbG3cOWZgrPuYdx1Q5M8A7cMYtDsqQ=', '2019-04-09 06:15:00', '1', 'admin', '', '', '', '1', '1', '2019-04-09 06:13:00');
 INSERT INTO `auth_user` VALUES ('3', 'pbkdf2_sha256$36000$beZh2IwiIRUq$lb9q2eItPe6u+BKcCW1uCnQSuBBylB154Qldli1eFQI=', '2019-04-09 06:22:46', '0', 'lihaodong', '', '', '', '1', '1', '2019-04-09 06:22:33');
 
@@ -244,7 +252,7 @@ CREATE TABLE `django_migrations` (
   `name` varchar(255) NOT NULL,
   `applied` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of django_migrations
@@ -264,6 +272,9 @@ INSERT INTO `django_migrations` VALUES ('12', 'auth', '0008_alter_user_username_
 INSERT INTO `django_migrations` VALUES ('13', 'sessions', '0001_initial', '2019-04-09 05:54:21');
 INSERT INTO `django_migrations` VALUES ('14', 'analysis', '0001_initial', '2019-04-09 05:55:29');
 INSERT INTO `django_migrations` VALUES ('15', 'analysis', '0002_auto_20190409_1431', '2019-04-09 06:32:06');
+INSERT INTO `django_migrations` VALUES ('16', 'analysis', '0003_auto_20190412_1035', '2019-04-12 02:35:12');
+INSERT INTO `django_migrations` VALUES ('17', 'analysis', '0004_order_is_activate', '2019-04-12 02:46:40');
+INSERT INTO `django_migrations` VALUES ('18', 'analysis', '0005_auto_20190412_1102', '2019-04-12 03:03:03');
 
 -- ----------------------------
 -- Table structure for django_session
@@ -281,3 +292,4 @@ CREATE TABLE `django_session` (
 -- Records of django_session
 -- ----------------------------
 INSERT INTO `django_session` VALUES ('5ste5k9yo4lec31nkvucngsnh50zhi87', 'NzY0MTg2N2FhZTYyZWVmN2ZmZmFlNjJiZDBjNDE5ZGE4MjA5ODVmZjp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiI1ZjM3NDM3MWEwYWE3NmU1ODJkZWMyMTczZjZhOGUzNTQwNjA3N2Q5In0=', '2019-04-23 06:44:23');
+INSERT INTO `django_session` VALUES ('h932nfbl6gq6wy6or27mdxdpuio9yphj', 'NzY0MTg2N2FhZTYyZWVmN2ZmZmFlNjJiZDBjNDE5ZGE4MjA5ODVmZjp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiI1ZjM3NDM3MWEwYWE3NmU1ODJkZWMyMTczZjZhOGUzNTQwNjA3N2Q5In0=', '2019-04-26 02:57:45');
