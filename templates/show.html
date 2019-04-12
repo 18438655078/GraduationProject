@@ -7,13 +7,44 @@
         .top_text{
             text-align: center;
         }
+        ul{
+            list-style:none;
+            text-align: center;
+        }
+        .img{
+            text-align: center;
+        }
+        p{
+            color: yellow;
+        }
+        span{
+            color: orange;
+        }
     </style>
 </head>
 <body background="../static/images/b1.jpg">
 <h2 class="top_text">欢迎您使用本网站进行餐饮数据分析</h2>
 <h4 class="top_text">以下是对您的数据进行的分析处理</h4>
     <div>
-
+        <ul>
+            <li>平均每桌消费：<span>{{ order.avgcount }}</span></li>
+            <li>人均消费：<span>{{ order.menavg }}</span></li>
+            <li>平均菜价：<span>{{ order.dishe_avg }}</span></li>
+            <li>就餐时长：<span>{{ order.use_time }}</span></li>
+        </ul>
+        
+        <div class="img">
+            <p>菜品前15排行</p>
+            <img src="../static/img/{{ order.img1 }}" alt="菜品前15排行" >
+        </div>
+        <div class="img">
+             <p>菜品后15排行</p>
+            <img src="../static/img/{{ order.img2 }}" alt="菜品后15排行">
+        </div>
+        <div class="img">
+            <p>日客流量</p>
+            <img src="../static/img/{{ order.img3 }}" alt="日客流量">
+        </div>
     </div>
 </body>
 </html>
