@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,7 +23,7 @@
         }
     </style>
 </head>
-<body background="../static/images/b1.jpg">
+<body background="{% static "images/b1.jpg" %}">
 <h2 class="top_text">欢迎您使用本网站进行餐饮数据分析</h2>
 <h4 class="top_text">以下是对您的数据进行的分析处理</h4>
     <div>
@@ -35,15 +36,15 @@
         
         <div class="img">
             <p>菜品前15排行</p>
-            <img src="../static/img/{{ order.img1 }}" alt="菜品前15排行" >
+            <img src="{% static order.img1 %}" alt="菜品前15排行" >
         </div>
         <div class="img">
              <p>菜品后15排行</p>
-            <img src="../static/img/{{ order.img2 }}" alt="菜品后15排行">
+            <img src="{% static order.img2 %}" alt="菜品后15排行">
         </div>
         <div class="img">
             <p>日客流量</p>
-            <img src="../static/img/{{ order.img3 }}" alt="日客流量">
+            <img src="{% static order.img3 %}" alt="日客流量">
         </div>
     </div>
 </body>

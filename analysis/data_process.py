@@ -4,6 +4,13 @@ import numpy as np
 import datetime
 from matplotlib import pyplot as plt
 import time
+import os
+
+
+# 绝对地址上一层
+address = os.path.dirname(__file__)
+address = address.split("\\")[:-1]
+address = r'/'.join(address)
 
 
 class DataProcess(object):
@@ -58,9 +65,9 @@ class DataProcess(object):
             num += i[1]
         plt.title("饼图示例-销量前十五，共占总额%s%%" % str(num * 100 // int(allnum)))
         millis = str(int(round(time.time() * 1000)))
-        self.img1 = '../static/img/pnum' + millis + '.png'
-        plt.savefig(self.img1, bbox_inches='tight')
-        plt.show()
+        self.img1 = 'img/pnumimg1' + millis + '.png'
+        plt.savefig(address + '/static/' + self.img1, bbox_inches='tight')  # 保证图片保存完整
+        # plt.show()
 
         plt.figure()
         plt.rcParams['font.sans-serif'] = ['SimHei']  # 用来正常显示中文标签
@@ -75,10 +82,9 @@ class DataProcess(object):
         plt.pie(sizes, labels=labels, autopct='%1.1f%%', shadow=False, startangle=150)
         plt.title("饼图示例-销量后十五，共占总额%s%%" % str(num * 100 // int(allnum)))
         millis = str(int(round(time.time() * 1000)))
-        self.img2 = '../static/img/pnum' + millis + '.png'
-        plt.savefig(self.img2, bbox_inches='tight')
-        plt.show()
-
+        self.img2 = 'img/pnumimg2' + millis + '.png'
+        plt.savefig(address + '/static/' + self.img2, bbox_inches='tight')  # 保证图片保存完整
+        # plt.show()
 
     def order(self):
         # order_info = pd.read_excel('order_info.xlsx')
@@ -90,11 +96,11 @@ class DataProcess(object):
         use_end_time = self.order_info['use_end_time']
 
         # 平均消费
-        avgcount = int(expenditure.mean())
+        avgcount = str(int(expenditure.mean())) + '元'
         # 人均消费
-        menavg = expenditure.sum() // number_consumers.sum()
+        menavg = str(expenditure.sum() // number_consumers.sum()) + '元'
         # 平均菜价
-        dishe_avg = expenditure.sum() // dishes_count.sum()
+        dishe_avg = str(expenditure.sum() // dishes_count.sum()) + '元'
         # 就餐时长
         use_time = use_end_time.values - use_start_time.values
         use_time = use_time.mean()
@@ -135,10 +141,10 @@ class DataProcess(object):
             plt.text(a, b + 0.05, '%d' % b, ha='center', va='bottom', fontsize=11)
         # plt.savefig('../static/img/pnum.png')
 
-        millis = str(int(round(time.time() * 1000)))
-        self.img3 = '../static/img/pnum' + millis + '.png'
-        plt.savefig(self.img3, bbox_inches='tight')  # 保证图片保存完整
-        plt.show()
+        millis = str(round(time.time()))
+        self.img3 = 'img/pnumimg3' + millis + '.png'
+        plt.savefig(address + '/static/' + self.img3, bbox_inches='tight')  # 保证图片保存完整
+        # plt.show()
         self.avgcount = avgcount
         self.menavg = menavg
         self.dishe_avg = dishe_avg
@@ -156,20 +162,19 @@ class DataProcess(object):
             item['menavg'] = self.menavg
             item['dishe_avg'] = self.dishe_avg
             item['use_time'] = self.use_time
-            item['is_activate'] = True
+            print(item)
             return item
         except:
-            item['is_activate'] = False
             return item
+
 
 
 def deal(dishes_info, order_info):
 
     # dishes_info = pd.read_excel(dishes_url)
     # order_info = pd.read_excel(order_url)
-    dishes_info = pd.read_excel("../static/"+dishes_info)
-    order_info = pd.read_excel("../static/"+order_info)
+    dishes_info = pd.read_excel(address + "/static/" + dishes_info)
+    order_info = pd.read_excel(address + "/static/" + order_info)
 
     d = DataProcess(dishes_info, order_info)
     return d.getdata()
-
