@@ -10,19 +10,23 @@ from . import data_process
 
 def user_register(request):
     if request.method == 'GET':
-        return render(request, 'register.html')
+        return render(request, 'reg.html')
     else:
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = User.objects.filter(username=username)
         if user.exists():
-            return render(request, 'register.html', {'msg': '账号已存在'})
+            return render(request, 'reg.html', {'msg': '账号已存在'})
         else:
             group = Group.objects.get(name="用户")
             u = User.objects.create_user(username=username, password=password, is_staff=1)
             u.groups.add(group)
             Auth_Logout(request)
             return HttpResponseRedirect('/admin')
+
+
+def attention(request):
+    return render(request, 'attention.html')
 
 
 @login_required
@@ -50,7 +54,7 @@ def do_excel(request, id):
     use_time = item['use_time']
     print(item)
     Order.objects.filter(id=id).update(img1=img1, img2=img2, img3=img3, avgcount=avgcount, menavg=menavg,
-                                       dishe_avg=dishe_avg, use_time=use_time)
+                                       dishe_avg=dishe_avg, use_time=use_time, is_activate=1)
     # u = User.objects.create_user(username=username, password=password, is_staff=1)
     # data_process.deal(order_file_data, dishes_file_data)
     order = Order.objects.get(id=id)

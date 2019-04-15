@@ -1,6 +1,5 @@
 {% load static %}
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -24,6 +23,7 @@
     </style>
 </head>
 <body background="{% static 'images/b1.jpg' %}">
+<h2 align="center">使用前请先查看此规范！！！<a href="{% url "analysis:attention" %}" target="_blank">查看规范详情</a></h2>
 <div id="middle">
     <p id="flag">请注册</p>
     <form action="{% url "analysis:user_register" %}" method="post">

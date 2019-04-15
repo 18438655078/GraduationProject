@@ -8,8 +8,14 @@ import os
 
 
 # 绝对地址上一层
+# windows路径
+# address = os.path.dirname(__file__)
+# address = address.split("\\")[:-1]
+# address = r'/'.join(address)
+# linux路径
 address = os.path.dirname(__file__)
-address = address.split("\\")[:-1]
+print(address)
+address = address.split("/")[:-1]
 address = r'/'.join(address)
 
 
